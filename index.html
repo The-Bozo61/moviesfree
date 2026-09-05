@@ -2,30 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Full Screen Video</title>
+    <title>Auto Fullscreen Video</title>
     <style>
-        /* Remove default margins and set body and html to fill the viewport */
+        /* Remove default margins and hide scrollbars */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden;
         }
-        /* Make the video fill the entire screen */
+        /* Make the video fill the entire viewport */
         video {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensure the video covers the entire area, cropping if necessary */
+            display: block;
         }
     </style>
 </head>
 <body>
-    <video autoplay muted loop>
+    <video id="fullscreenVideo" autoplay muted loop>
         <source src="movies_free.mp4" type="video/mp4" />
         Your browser does not support the video tag.
     </video>
+
+    <script>
+        const video = document.getElementById('fullscreenVideo');
+
+        // When the page loads, request fullscreen
+        window.onload = () => {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) { /* Safari */
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) { /* IE/Edge */
+                video.msRequestFullscreen();
+            }
+        };
+    </script>
 </body>
 </html>
